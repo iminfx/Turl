@@ -1,0 +1,18 @@
+{
+  "name": "turl",
+  "description": "turl",
+  "main": "gulpfile.js",
+  "authors": [
+    "toqi1 <Tony.Qian@ebuilder.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
