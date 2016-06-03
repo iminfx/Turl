@@ -15,8 +15,8 @@ var jsFiles = [
     './src/framework/common-scripts.js'
 ];
 var cssFiles = [
-    './bower_components/bootstrap/dist/css/bootstrap.min.css',
-    './bower_components/font-awesome/css/font-awesome.min.css',
+    './src/css/bootstrap.css',
+    './src/css/font-awesome.css',
     './src/css/bootstrap-reset.css',
     './src/css/style.css',
     './src/css/style-responsive.css'
