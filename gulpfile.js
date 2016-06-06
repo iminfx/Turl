@@ -16,7 +16,7 @@ var jsFiles = [
 ];
 var cssFiles = [
     './src/css/bootstrap.css',
-    './src/css/font-awesome.css',
+    './src/css/font-awesome.min.css',
     './src/css/bootstrap-reset.css',
     './src/css/style.css',
     './src/css/style-responsive.css'
