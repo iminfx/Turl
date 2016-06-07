@@ -1,10 +1,10 @@
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);*/
 
 body {
     color: #797979;
     background: #f1f2f7;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans','Helvetica Neue',Arial,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
     padding: 0 !important;
     margin: 0 !important;
     font-size: 14px;
