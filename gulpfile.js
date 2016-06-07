@@ -6,9 +6,8 @@ var webserver = require('gulp-webserver');
 var util = require('gulp-util');
 var replace = require('gulp-replace');
 var jsVendorFiles = [
-    './bower_components/jquery/dist/jquery.js',
-    './bower_components/bootstrap/dist/js/bootstrap.min.js',
     './bower_components/angular/angular.js',
+    './bower_components/jquery/dist/jquery.js',
     './bower_components/angular-ui-router/release/angular-ui-router.js',
     './bower_components/angular-animate/angular-animate.js',
     './src/framework/ui-bootstrap-tpls-1.3.1.js'
@@ -60,7 +59,7 @@ gulp.task('scripts_min', function(){
     ])
         .pipe(concat('all.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./dist/js/'));
 });
 
 gulp.task('stylesheets_min', function(){
