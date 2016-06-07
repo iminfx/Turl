@@ -48,7 +48,7 @@ gulp.task('scripts_min', function(){
     return gulp.src(jsFiles)
         .pipe(concat('all.js')) // �ϲ� JavaScript �������úϲ�����ļ���
         .pipe(uglify()) // ִ�� JavaScript ѹ��
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest('./dist/js'));
 });
 gulp.task('stylesheets_min', function(){
     return gulp.src(cssFiles)
