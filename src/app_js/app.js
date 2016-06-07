@@ -16,12 +16,12 @@ angular
                           templateUrl: 'tpls/sidebar.html'
                       },
                       'main@index': {
-                          templateUrl: 'tpls/tenantlist.html',
-                          controller: function($scope, $state) {
+                          templateUrl: 'tpls/tenantlist.html'
+                          /*controller: function($scope, $state) {
                               $scope.addUserType = function() {
                                   $state.go("index.addusertype");
                               }
-                          }
+                          }*/
                       }
                   }
               })
@@ -60,4 +60,5 @@ angular
                       }
                   }
               })
+
       }]);
