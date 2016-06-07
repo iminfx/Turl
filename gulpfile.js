@@ -5,16 +5,13 @@ var minifyCss = require('gulp-minify-css');
 var webserver = require('gulp-webserver');
 var util = require('gulp-util');
 var replace = require('gulp-replace');
-var jsFiles = [
+var jsVendorFiles = [
     './bower_components/jquery/dist/jquery.js',
     './bower_components/bootstrap/dist/js/bootstrap.min.js',
     './bower_components/angular/angular.js',
     './bower_components/angular-ui-router/release/angular-ui-router.js',
-    './src/framework/jquery.dcjqaccordion.2.7.js',
-
-    './src/app_js/app.js',
-    //'./src/app_js/app.routers.js'
-    './src/framework/common-scripts.js'
+    './bower_components/angular-animate/angular-animate.js',
+    './src/framework/ui-bootstrap-tpls-1.3.1.js'
 ];
 var cssFiles = [
     './src/css/bootstrap.css',
@@ -40,20 +37,36 @@ gulp.task('build-api', function () {
     util.log('Updating ServicePortal.ASAAPI.js:_apiUrl to: "' + api + '"');
     return gulp.src(['./src/app_js/api/ServicePortal.ASAAPI.js'])
         .pipe(replace('BUILD_API_PLACEHOLDER', api))
+        .pipe(gulp.dest('./dist/js'));
+});
+
+
+gulp.task('scripts_min_vendor', function(){
+    return gulp.src(jsVendorFiles)
+        .pipe(concat('all.vendor.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist/js'));
+});
+
+gulp.task('scripts_min', function(){
+    return gulp.src([
+        './dist/js/ServicePortal.ASAAPI.js',
+        './src/app_js/tech/NGeTP.appSDK.mod.js',
+        './src/app_js/app.js',
+        './src/app_js/controllers.js',
+        './src/app_js/directives.js',
+        './src/app_js/filters.js',
+        './src/app_js/services.js'
+    ])
+        .pipe(concat('all.js'))
+        .pipe(uglify())
         .pipe(gulp.dest('./dist'));
 });
 
-// �������� `min` ����֮�⣬������������ `min` �������������ڲ����ļ�ѹ��
-gulp.task('scripts_min', function(){
-    return gulp.src(jsFiles)
-        .pipe(concat('all.js')) // �ϲ� JavaScript �������úϲ�����ļ���
-        .pipe(uglify()) // ִ�� JavaScript ѹ��
-        .pipe(gulp.dest('./dist'));
-});
 gulp.task('stylesheets_min', function(){
     return gulp.src(cssFiles)
-        .pipe(concat('all.css')) // �ϲ� CSS �������úϲ�����ļ���
-        .pipe(minifyCss()) // ִ�� CSS ѹ��
+        .pipe(concat('all.css'))
+        .pipe(minifyCss())
         .pipe(gulp.dest('./dist'));
 });
 
@@ -70,8 +83,6 @@ gulp.task('copyFiles', function () {
 });
 
 gulp.task('watch', function(){
-    // ��ͬ���ļ����ԣ���Ҫִ�в�ͬ������������
-    gulp.watch(['bower_components/*'], ['scripts', 'stylesheets']);
     gulp.watch(['src/css/*']);
     gulp.watch(['app_js/*']);
 });
@@ -84,4 +95,4 @@ gulp.task('webserver', function(){
         }));
 });
 
-gulp.task('default',['scripts_min', 'stylesheets_min', 'build-api', 'copyFiles', 'webserver','watch']); //����Ĭ������
+gulp.task('default',['build-api','scripts_min','scripts_min_vendor', 'stylesheets_min', 'copyFiles', 'webserver','watch']);
