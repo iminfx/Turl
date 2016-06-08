@@ -1,5 +1,5 @@
 angular
-    .module('turfApp', ['ui.router'])
+    .module('turfApp', ['ui.router', 'login'])
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
           $urlRouterProvider.otherwise('/login');
           $stateProvider
