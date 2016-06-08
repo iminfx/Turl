@@ -115,4 +115,9 @@
         margin-bottom: 15px;
     }
 
+    .copyright {
+        position: relative;
+        bottom: 0;
+    }
+
 }
