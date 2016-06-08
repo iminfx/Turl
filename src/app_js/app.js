@@ -1,5 +1,6 @@
 angular
     .module('turfApp', ['ui.router', 'login'])
+    .value('API', 'http://localhost:8000/')
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
           $urlRouterProvider.otherwise('/login');
           $stateProvider
