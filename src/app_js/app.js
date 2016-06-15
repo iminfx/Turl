@@ -44,7 +44,7 @@ angular
                   }
               })
               .state('newOrder', {
-                  url: '/orderhandler',
+                  url: '/newOrder',
                   views: {
                       '': {
                           templateUrl: 'tpls/home.html'
