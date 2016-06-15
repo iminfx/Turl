@@ -10,7 +10,8 @@ var jsVendorFiles = [
     './bower_components/jquery/dist/jquery.js',
     './bower_components/angular-ui-router/release/angular-ui-router.js',
     './bower_components/angular-animate/angular-animate.js',
-    './src/framework/ui-bootstrap-tpls-1.3.1.js'
+    './src/framework/ui-bootstrap-tpls-1.3.1.js',
+    './bower_components/moment/min/moment.min.js'
 ];
 var cssFiles = [
     './src/css/bootstrap.css',
@@ -58,7 +59,7 @@ gulp.task('scripts_min', function(){
         './src/app_js/services.js'
     ])
         .pipe(concat('all.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('./dist/js/'));
 });
 
@@ -74,7 +75,7 @@ gulp.task('copyFiles', function () {
     return gulp.src([
         './src/assets/**/*',
         './src/fonts/*',
-        './src/tpls/*',
+        './src/tpls/**/*',
         './src/index.html'], {
         base: './src/'
     })
