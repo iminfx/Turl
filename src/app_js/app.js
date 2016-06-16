@@ -1,5 +1,5 @@
 angular
-    .module('turfApp', ['ui.router'])
+    .module('turfApp', ['ui.router','ui.bootstrap','bsTable','app.ctrl','app.directive'])
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
           $urlRouterProvider.otherwise('/login');
           $stateProvider
@@ -56,6 +56,16 @@ angular
                   views: {
                       'main@index': {
                           templateUrl: 'tpls/change.html'
+
+                      }
+                  }
+              })
+
+              .state('index.order_handle', {
+                  url: '/order_handle',
+                  views: {
+                      'main@index': {
+                          templateUrl: 'tpls/order_handle.html'
 
                       }
                   }

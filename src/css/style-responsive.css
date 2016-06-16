@@ -17,7 +17,7 @@
 
     /* body container */
     #main-content {
-        margin: 0px!important;
+        margin: 0 !important;
         position: none !important;
     }
 
@@ -61,7 +61,7 @@
 
     /* sidebar */
     #sidebar {
-        margin: 0px !important;
+        margin: 0 !important;
     }
 
     /* sidebar collabler */
@@ -120,4 +120,7 @@
         bottom: 0;
     }
 
+    #sidebar > ul {
+        display: none;
+    }
 }
