@@ -106,67 +106,6 @@ angular
                 $state.go('ohhome', {});
             });
         }
-    }])
-    .controller('saveOrder',['$scope', '$state', '$http', function($scope, $state, $http){
-        var saveOrderUrl = 'http://192.168.199.111:8080/portal/insert/order/';
-        $scope.order = {
-            customerName: '',
-            customerContact: '',
-            customerEmail: '',
-            turfVariety: '',
-            turfQuantity: '',
-            totalPrice: '',
-            cutter: '',
-            driver: '',
-            layer: '',
-            address: '',
-            expectDeliveryDate: moment().format(),
-            orderCreate: moment().format(),
-            lastModified: moment().format()
-        };
-        var postData = {
-            order_id: '',
-            owner: '',
-            customer_name: $scope.order.customerName,
-            customer_contact: $scope.order.customerContact,
-            turf_varity: $scope.order.turfVariety,
-            turf_quanutity: $scope.order.turfQuantity,
-            cutter: $scope.order.cutter,
-            driver: $scope.order.driver,
-            layer: $scope.order.layer,
-            total_price: $scope.order.totalPrice,
-            address_detail: $scope.order.address,
-            delivery_date_time: $scope.order.expectDeliveryDate,
-            submitted_date_time: $scope.order.orderCreate,
-            order_status: 'new',
-            customer_email:$scope.order.customerEmail,
-            last_modified: $scope.order.orderCreate,
-            modifier: '',
-            turf_type: '',
-            is_delete: ''
-        };
-        $scope.save = function() {
-            //if ($scope.form.$valid) {
-                //$http.get(saveOrderUrl)
-                //$http(saveOrderUrl, {data:test})
-            $http({
-                url: saveOrderUrl,
-                method: 'POST',
-                data: JSON.stringify(postData)
-            }).success(function (data) {
-                        //jumping to homepage according to the role
-                        console.log('create success! ' + data);
-                        $state.go('ohhome', {});
-                    })
-                    .error(function (error) {
-                            //jumping to homepage according to the role
-                            console.log('create fail: ');
-                        }
-                    );
-           // } else {
-           //     console.log('Invalid form to save ! ');
-           // }
-
-        }
     }]);
+
 
