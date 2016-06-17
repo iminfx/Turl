@@ -767,3 +767,15 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
     width: 100%;
     height: 100%;
 }
+
+ .full button span {
+     background-color: limegreen;
+     border-radius: 32px;
+     color: black;
+ }
+
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}

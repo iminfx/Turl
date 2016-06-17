@@ -2,19 +2,25 @@
     <!-- sidebar menu start-->
     <ul class="sidebar-menu" id="nav-accordion">
         <li>
-            <a class="" ui-sref="index">
+            <a data-ng-class="{ active: $state.includes('ohhome') }" data-ui-sref="ohhome">
                 <i class="icon-home"></i>
-                <span>In-Progress Orders</span>
+                <span>Order Management</span>
             </a>
         </li>
         <li>
-            <a class="" ui-sref="index.resetpw">
+            <a data-ng-class="{ active: $state.includes('newOrder') }" data-ui-sref="newOrder">
                 <i class="icon-lock"></i>
-                <span>Uncommitted Orders</span>
+                <span>create new{{createNew}}</span>
             </a>
         </li>
         <li>
-            <a class="" ui-sref="index.change">
+            <a class="" ui-sref="ohhome">
+                <i class="icon-lock"></i>
+                <span>Draft Orders</span>
+            </a>
+        </li>
+        <li>
+            <a class="" ui-sref="ohhome">
                 <i class="icon-edit"></i>
                 <span>Closed Orders</span>
             </a>
