@@ -30,10 +30,10 @@ angular
                   url: '/orderhandler',
                   views: {
                       '': {
-                          templateUrl: 'tpls/home.html'
+                          templateUrl: 'tpls/oh/home.html'
                       },
                       'topbar@ohhome': {
-                          templateUrl: 'tpls/topbar.html'
+                          templateUrl: 'tpls/oh/topbar.html'
                       },
                       'sidebar@ohhome': {
                           templateUrl: 'tpls/oh/sidebar_oh.html'
@@ -47,10 +47,10 @@ angular
                   url: '/newOrder',
                   views: {
                       '': {
-                          templateUrl: 'tpls/home.html'
+                          templateUrl: 'tpls/oh/home.html'
                       },
                       'topbar@newOrder': {
-                          templateUrl: 'tpls/topbar.html'
+                          templateUrl: 'tpls/oh/topbar.html'
                       },
                       'sidebar@newOrder': {
                           templateUrl: 'tpls/oh/sidebar_oh.html'

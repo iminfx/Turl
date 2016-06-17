@@ -1,15 +1,3 @@
-<style>
-    .full button span {
-        background-color: limegreen;
-        border-radius: 32px;
-        color: black;
-    }
-    .partially button span {
-        background-color: orange;
-        border-radius: 32px;
-        color: black;
-    }
-</style>
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
@@ -20,56 +8,56 @@
                 </ul>
             </div>
 
-            <div class="panel-body" ng-controller="saveOrder">
+            <div class="panel-body">
                         <form class="form-horizontal" name="form" ng-submit="save()" role="form">
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Customer Name</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <input type="text" class="form-control" ng-model="order.customerName" placeholder=" " required>
+                                    <input type="text" class="form-control" ng-model="order.customer_name" placeholder=" " required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Customer Contact</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <input type="tel" class="form-control" ng-model="order.customerContact" placeholder=" " required>
+                                    <input type="tel" class="form-control" ng-model="order.customer_contact" placeholder=" " required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">CustomerE-mail</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <input type="email" class="form-control" ng-model="order.customerEmail" placeholder=" " required>
+                                    <input type="email" class="form-control" ng-model="order.customer_email" placeholder=" " required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Address Details</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <input type="text" class="form-control" placeholder=" " ng-model="order.address" required>
+                                    <input type="text" class="form-control" placeholder=" " ng-model="order.address_detail" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Variety</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <input type="text" class="form-control" ng-model="order.turfVariety" placeholder=" " required>
+                                    <select class="form-control" ng-model="order.turf_varity" ng-options="turfVariety.turf_price as turfVariety.turf_type for turfVariety in turf" ng-required="true"></select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Quantity</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <input type="number" class="form-control" ng-model="order.turfQuantity" placeholder=" " required>
+                                    <input type="number" class="form-control" ng-model="order.turf_quanutity" placeholder=" " required>
+
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Total Price</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <input type="number" class="form-control" ng-model="order.totalPrice" placeholder=" " required>
+                                    <input type="number" class="form-control" ng-model="order.total_price" value="{{order.turf_quanutity*order.turf_varity}}" placeholder="{{Number(order.turf_varity)*Number(order.turf_quanutity)}}" required>
                                 </div>
                             </div>
                             <div class="form-group" ng-controller="DatePickerPopupCtrl">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label"> Expect Delivery Date</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <!--<input type="datetime" class="form-control" placeholder=" " ng-model="order.expectDeliveryDate" required>-->
                                     <p class="input-group">
-                                        <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="order.expectDeliveryDate"
+                                        <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="order.delivery_date_time"
                                                is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
                                                alt-input-formats="altInputFormats" />
                                         <span class="input-group-btn">
@@ -81,28 +69,19 @@
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Cutter</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <select class="form-control" ng-model="order.cutter" required>
-                                        <option value="Free Trail">Free Trail</option>
-                                        <option value="Enterprise">Enterprise</option>
-                                    </select>
+                                    <select class="form-control" ng-model="order.cutter" ng-options="cutter.cutter_name for cutter in cutters"  ng-required="true"></select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Driver</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <select class="form-control" ng-model="order.driver" required>
-                                        <option value="Free Trail">Free Trail</option>
-                                        <option value="Enterprise">Enterprise</option>
-                                    </select>
+                                    <select class="form-control" ng-model="order.driver" ng-options="driver.driver_name for driver in drivers"  ng-required="true"></select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Layer</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <select class="form-control" ng-model="order.layer" required>
-                                        <option value="Free Trail">Free Trail</option>
-                                        <option value="Enterprise">Enterprise</option>
-                                    </select>
+                                    <select class="form-control" ng-model="order.layer" ng-options="layer.layer_name for layer in layers"  ng-required="true"></select>
                                 </div>
                             </div>
 
@@ -110,7 +89,7 @@
                                 <div class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3 col-lg-10 col-md-9 col-sm-9">
                                     <button type="submit" class="btn btn-success">Submit</button>
                                     <button type="button" ng-click="" class="btn btn-default">Save as Draft</button>
-                                    <button type="button" class="btn btn-default">Cancel</button>
+                                    <button type="button" ng-click="" class="btn btn-default">Cancel</button>
                                 </div>
                             </div>
                         </form>
