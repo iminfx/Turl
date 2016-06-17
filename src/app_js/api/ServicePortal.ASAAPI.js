@@ -23,7 +23,7 @@ window.ServicePortal = window.ServicePortal || {};
 
 ServicePortal.ApiClient = (function () {
     //Default Public API endpoint
-    var _apiUrl = "BUILD_API_PLACEHOLDER";
+    var _apiUrl = "BUILD_API_PLACEHOLDER";//eg:'http://localhost:8000/'
     var _token = null;
     var _callTimeout = 30000;
     var _queryType = null;

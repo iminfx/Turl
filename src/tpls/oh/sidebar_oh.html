@@ -1,0 +1,31 @@
+<div id="sidebar">
+    <!-- sidebar menu start-->
+    <ul class="sidebar-menu" id="nav-accordion">
+        <li>
+            <a data-ng-class="{ active: $state.includes('ohhome') }" data-ui-sref="ohhome">
+                <i class="icon-home"></i>
+                <span>Order Management</span>
+            </a>
+        </li>
+        <li>
+            <a data-ng-class="{ active: $state.includes('newOrder') }" data-ui-sref="newOrder">
+                <i class="icon-lock"></i>
+                <span>create new{{createNew}}</span>
+            </a>
+        </li>
+        <li>
+            <a class="" ui-sref="ohhome">
+                <i class="icon-lock"></i>
+                <span>Draft Orders</span>
+            </a>
+        </li>
+        <li>
+            <a class="" ui-sref="ohhome">
+                <i class="icon-edit"></i>
+                <span>Closed Orders</span>
+            </a>
+        </li>
+    </ul>
+    <!-- sidebar menu end-->
+    <p class="text-center copyright">2016 © Turf by Shinetechchina.</p>
+</div>
