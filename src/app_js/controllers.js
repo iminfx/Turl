@@ -169,7 +169,7 @@ angular
 
         }
     }]);
-
+angular
     .module('app.ctrl',[])
     .controller('DropdownCtrl', DropdownCtrl)
     .controller('orderHandle', orderHandle);
@@ -231,18 +231,18 @@ function orderHandle($scope,$http,$q) {
                 pageSize: 10,
                 pageList: [10, 25, 50,100],
                 search: true,
-                showColumns: true,
+                //showColumns: true,
                 //showRefresh: false,
-                minimumCountColumns: 2,
+                //minimumCountColumns: 2,
                 clickToSelect: false,
                 //showToggle: true,
                 //maintainSelected: true,
                 toolbar:"#toolbar",
                 formatter: idFormatter,
-                columns: [{
+                columns: [ {
                     field: 'state',
                     checkbox: true
-                }, {
+                },{
                     field: 'order_id',
                     title: 'ID',
                     align: 'center',
@@ -285,19 +285,22 @@ function orderHandle($scope,$http,$q) {
                     title: 'Cutter',
                     align: 'center',
                     valign: 'middle',
-                    sortable: true
+                    sortable: true,
+                    visible: false
                 }, {
                     field: 'driver',
                     title: 'Driver',
                     align: 'center',
                     valign: 'middle',
-                    sortable: true
+                    sortable: true,
+                    visible: false
                 }, {
                     field: 'layer',
                     title: 'Layer',
                     align: 'center',
                     valign: 'middle',
-                    sortable: true
+                    sortable: true,
+                    visible: false
                 }, {
                     field: 'delivery_date_time',
                     title: 'DeliveryDate',
