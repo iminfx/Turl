@@ -1,15 +1,36 @@
 <nav class="navbar navbar-default navbar-fixed-top white-bg">
     <div class="container-fluid">
         <div class="sidebar-toggle-box">
-            <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
+            <div class="icon-reorder tooltips" sidebar></div>
         </div>
         <!--logo start-->
-        <a href="index.html" class="logo">Turf</a>
+        <a class="logo">Turf</a>
         <!--logo end-->
-        <div class="top-nav">
+        <div class="top-nav" ng-controller="DropdownCtrl">
             <ul class="nav pull-right">
-                <li>
-                    <span>System Administrator</span>
+
+                <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                    <a href class="dropdown-toggle" uib-dropdown-toggle>System Administrator <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a class="" ui-sref="index.resetpw">
+                                <i class="icon-lock"></i>
+                                <span>Reset Password</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" ui-sref="index.change">
+                                <i class="icon-edit"></i>
+                                <span>Change Information</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" ui-sref="login">
+                                <i class="icon-signout"></i>
+                                <span>Sing out</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>

@@ -6,16 +6,19 @@ var webserver = require('gulp-webserver');
 var util = require('gulp-util');
 var replace = require('gulp-replace');
 var jsVendorFiles = [
-    './bower_components/angular/angular.js',
     './bower_components/jquery/dist/jquery.js',
+    './bower_components/angular/angular.js',
     './bower_components/angular-ui-router/release/angular-ui-router.js',
     './bower_components/angular-animate/angular-animate.js',
     './src/framework/ui-bootstrap-tpls-1.3.1.js',
-    './bower_components/moment/min/moment.min.js'
+    './bower_components/moment/min/moment.min.js',
+    './src/framework/bootstrap-table.js',
+    './src/framework/bootstrap-table-angular.js'
 ];
 var cssFiles = [
     './src/css/bootstrap.css',
     './src/css/font-awesome.min.css',
+    './src/css/bootstrap-table.css',
     './src/css/bootstrap-reset.css',
     './src/css/style.css',
     './src/css/style-responsive.css'
@@ -44,7 +47,7 @@ gulp.task('build-api', function () {
 gulp.task('scripts_min_vendor', function(){
     return gulp.src(jsVendorFiles)
         .pipe(concat('all.vendor.js'))
-        .pipe(uglify())
+       // .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
 });
 
