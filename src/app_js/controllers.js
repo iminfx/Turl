@@ -88,12 +88,39 @@ angular
             turf_type: '',
             is_delete: ''
         };
+
+        $scope.updateTotalPrice = function(tv, tq){
+            $scope.order.total_price = tv*tq;
+            console.log('ng-change execute!')
+        };
+
         $scope.save = function() {
             var saveOrderUrl = 'http://192.168.199.111:8089/portal/insert/order/';
+            var orderData = {
+                order_id: '',
+                owner: '',
+                customer_name: $scope.order.customer_name,
+                customer_contact: $scope.order.customer_contact,
+                turf_varity: $scope.order.turf_varity.turf_type,
+                turf_quanutity: $scope.order.turf_quanutity,
+                cutter: $scope.order.cutter,
+                driver: $scope.order.driver,
+                layer: $scope.order.driver,
+                total_price: $scope.order.total_price,
+                address_detail: $scope.order.address_detail,
+                delivery_date_time: $scope.order.delivery_date_time,
+                submitted_date_time: moment().format(),
+                order_status: 'new',
+                customer_email:$scope.order.customer_email,
+                last_modified: moment().format(),
+                modifier: '',
+                turf_type: '',
+                is_delete: ''
+            };
             $http({
                 url: saveOrderUrl,
                 method: 'POST',
-                data: JSON.stringify($scope.order)
+                data: JSON.stringify(orderData)
             })
             .success(function (data) {
                 //jumping to homepage according to the role
@@ -106,69 +133,8 @@ angular
                 $state.go('ohhome', {});
             });
         }
-    }])
-    .controller('saveOrder',['$scope', '$state', '$http', function($scope, $state, $http){
-        var saveOrderUrl = 'http://192.168.199.111:8080/portal/insert/order/';
-        $scope.order = {
-            customerName: '',
-            customerContact: '',
-            customerEmail: '',
-            turfVariety: '',
-            turfQuantity: '',
-            totalPrice: '',
-            cutter: '',
-            driver: '',
-            layer: '',
-            address: '',
-            expectDeliveryDate: moment().format(),
-            orderCreate: moment().format(),
-            lastModified: moment().format()
-        };
-        var postData = {
-            order_id: '',
-            owner: '',
-            customer_name: $scope.order.customerName,
-            customer_contact: $scope.order.customerContact,
-            turf_varity: $scope.order.turfVariety,
-            turf_quanutity: $scope.order.turfQuantity,
-            cutter: $scope.order.cutter,
-            driver: $scope.order.driver,
-            layer: $scope.order.layer,
-            total_price: $scope.order.totalPrice,
-            address_detail: $scope.order.address,
-            delivery_date_time: $scope.order.expectDeliveryDate,
-            submitted_date_time: $scope.order.orderCreate,
-            order_status: 'new',
-            customer_email:$scope.order.customerEmail,
-            last_modified: $scope.order.orderCreate,
-            modifier: '',
-            turf_type: '',
-            is_delete: ''
-        };
-        $scope.save = function() {
-            //if ($scope.form.$valid) {
-                //$http.get(saveOrderUrl)
-                //$http(saveOrderUrl, {data:test})
-            $http({
-                url: saveOrderUrl,
-                method: 'POST',
-                data: JSON.stringify(postData)
-            }).success(function (data) {
-                        //jumping to homepage according to the role
-                        console.log('create success! ' + data);
-                        $state.go('ohhome', {});
-                    })
-                    .error(function (error) {
-                            //jumping to homepage according to the role
-                            console.log('create fail: ');
-                        }
-                    );
-           // } else {
-           //     console.log('Invalid form to save ! ');
-           // }
-
-        }
     }]);
+
 angular
     .module('app.ctrl',[])
     .controller('DropdownCtrl', DropdownCtrl)
