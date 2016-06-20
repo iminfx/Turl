@@ -7,6 +7,7 @@ var util = require('gulp-util');
 var replace = require('gulp-replace');
 var jsVendorFiles = [
     './bower_components/jquery/dist/jquery.js',
+    './bower_components/bootstrap/dist/js/bootstrap.js',
     './bower_components/angular/angular.js',
     './bower_components/angular-ui-router/release/angular-ui-router.js',
     './bower_components/angular-animate/angular-animate.js',
@@ -15,6 +16,17 @@ var jsVendorFiles = [
     './src/framework/bootstrap-table.js',
     './src/framework/bootstrap-table-angular.js'
 ];
+
+var jsFile = [
+    './dist/js/ServicePortal.ASAAPI.js',
+    './src/app_js/tech/NGeTP.appSDK.mod.js',
+    './src/app_js/app.js',
+    './src/app_js/controllers.js',
+    './src/app_js/directives.js',
+    './src/app_js/filters.js',
+    './src/app_js/services.js'
+];
+
 var cssFiles = [
     './src/css/bootstrap.css',
     './src/css/font-awesome.min.css',
@@ -52,15 +64,7 @@ gulp.task('scripts_min_vendor', function(){
 });
 
 gulp.task('scripts_min', function(){
-    return gulp.src([
-        './dist/js/ServicePortal.ASAAPI.js',
-        './src/app_js/tech/NGeTP.appSDK.mod.js',
-        './src/app_js/app.js',
-        './src/app_js/controllers.js',
-        './src/app_js/directives.js',
-        './src/app_js/filters.js',
-        './src/app_js/services.js'
-    ])
+    return gulp.src(jsFile)
         .pipe(concat('all.js'))
         //.pipe(uglify())
         .pipe(gulp.dest('./dist/js/'));
@@ -85,9 +89,10 @@ gulp.task('copyFiles', function () {
         .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('watch', function(){
-    gulp.watch(['src/css/*']);
-    gulp.watch(['app_js/*']);
+gulp.task('watch', function() {
+    gulp.watch(cssFiles, ['stylesheets_min']);
+    gulp.watch(jsFile, ['scripts_min']);
+    gulp.watch('./src/tpls/**/*', ['copyFiles']);
 });
 
 gulp.task('webserver', function(){
@@ -98,4 +103,4 @@ gulp.task('webserver', function(){
         }));
 });
 
-gulp.task('default',['build-api','scripts_min','scripts_min_vendor', 'stylesheets_min', 'copyFiles', 'webserver','watch']);
+gulp.task('default',['scripts_min','scripts_min_vendor', 'stylesheets_min', 'copyFiles', 'webserver','watch']);
