@@ -91,7 +91,7 @@ angular
 
         $scope.updateTotalPrice = function(tv, tq){
             $scope.order.total_price = tv*tq;
-            console.log('ng-change execute!')
+            //console.log('ng-change execute!')
         };
 
         $scope.save = function() {
