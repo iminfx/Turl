@@ -70,7 +70,8 @@ angular
                       'layer': null,
                       'total_price': null,
                       'turf_quantity': null,
-                      'turf_variety': null
+                      'turf_variety': null,
+                      'draft_id': null
                   }
               })
               .state('draftOrders', {
