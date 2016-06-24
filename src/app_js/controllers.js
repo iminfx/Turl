@@ -462,12 +462,14 @@ function orderHandle($scope,$state,$http,$q,$stateParams) {
                 title: 'DeliveryDate',
                 align: 'center',
                 valign: 'middle',
+                formatter: dateFormat2,
                 sortable: true
             }, {
                 field: 'submitted_date_time',
                 title: 'SubmittedDate',
                 align: 'center',
                 valign: 'middle',
+                formatter: dateFormat,
                 sortable: true
             }, {
                 field: 'order_status',
