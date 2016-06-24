@@ -19,7 +19,7 @@
                     <div class="form-group" ng-class="{'has-warning':form.customerName.$invalid && form.customerName.$touched}">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">Customer Name</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <input type="text" name="customerName" class="form-control" ng-model="order.customer_name"  placeholder=" " required ng-disabled="disableSwitch">
+                            <input type="text" name="customerName" class="form-control" ng-model="order.customer_name"  placeholder=" " ng-required="true"  ng-disabled="disableSwitch">
                             <p ng-if="form.customerName.$invalid && form.customerName.$touched">please input customer name</p>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Variety</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <select class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_price as turfVariety.turf_type for turfVariety in turf" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
+                            <select class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_type as turfVariety.turf_type for turfVariety in turf" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
                                 <option value="">Select Turf Variety</option>
                             </select>
                             <p class="disabledSelect" ng-show="disableSwitch">{{order.turf_variety}}</p>
@@ -66,14 +66,7 @@
                     <div class="form-group" ng-controller="DatePickerPopupCtrl">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">Delivery Date</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="order.delivery_date_time"
-                                       is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
-                                       alt-input-formats="altInputFormats" ng-disabled="disableSwitch"/>
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                        </span>
-                            </p>
+                            <input type="date" class="form-control" ng-model="order.delivery_date_time" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -82,8 +75,7 @@
                             <select name="cutter" class="form-control" ng-model="order.cutter" ng-options="cutter.cutter_name as cutter.cutter_name for cutter in cutters" required ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
                                 <option value="">Select Cutter</option>
                             </select>
-                            <span ng-show="form.cutter.$error.required">Select Cutter</span>
-                            <p class="disabledSelect" ng-show="disableSwitch">{{order.cutter}}</p>
+                            <p class="disabledSelect" ng-show="disableSwitch" ng-bind="order.cutter"></p>
                         </div>
                     </div>
                     <div class="form-group">
