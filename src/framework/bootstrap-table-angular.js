@@ -1,15 +1,13 @@
-// JavaScript source code
 (function () {
   if (typeof angular === 'undefined') {
     return;
   }
   angular.module('bsTable', [])
-    .constant('uiBsTables', {bsTables: {}})
-    .directive('bsTableControl', ['uiBsTables', function (uiBsTables) {
+      .directive('bsTableControl', ['$compile', function ($compile) {
     var CONTAINER_SELECTOR = '.bootstrap-table';
     var SCROLLABLE_SELECTOR = '.fixed-table-body';
     var SEARCH_SELECTOR = '.search input';
-    var bsTables = uiBsTables.bsTables;
+    var bsTables = {};
     function getBsTable (el) {
       var result;
       $.each(bsTables, function (id, bsTable) {
@@ -33,48 +31,48 @@
       });
     }
     $(document)
-      .on('post-header.bs.table', CONTAINER_SELECTOR+' table', function (evt) { // bootstrap-table calls .off('scroll') in initHeader so reattach here
-        var bsTable = getBsTable(evt.target);
-        if (!bsTable) return;
-        bsTable.$el
-          .closest(CONTAINER_SELECTOR)
-          .find(SCROLLABLE_SELECTOR)
-          .on('scroll', onScroll.bind(bsTable));
-      })
-      .on('sort.bs.table', CONTAINER_SELECTOR+' table', function (evt, sortName, sortOrder) {
-        var bsTable = getBsTable(evt.target);
-        if (!bsTable) return;
-        var state = bsTable.$s.bsTableControl.state;
-        bsTable.$s.$applyAsync(function () {
-          state.sortName = sortName;
-          state.sortOrder = sortOrder;
+        .on('post-header.bs.table', CONTAINER_SELECTOR+' table', function (evt) { // bootstrap-table calls .off('scroll') in initHeader so reattach here
+          var bsTable = getBsTable(evt.target);
+          if (!bsTable) return;
+          bsTable.$el
+              .closest(CONTAINER_SELECTOR)
+              .find(SCROLLABLE_SELECTOR)
+              .on('scroll', onScroll.bind(bsTable));
+        })
+        .on('sort.bs.table', CONTAINER_SELECTOR+' table', function (evt, sortName, sortOrder) {
+          var bsTable = getBsTable(evt.target);
+          if (!bsTable) return;
+          var state = bsTable.$s.bsTableControl.state;
+          bsTable.$s.$applyAsync(function () {
+            state.sortName = sortName;
+            state.sortOrder = sortOrder;
+          });
+        })
+        .on('page-change.bs.table', CONTAINER_SELECTOR+' table', function (evt, pageNumber, pageSize) {
+          var bsTable = getBsTable(evt.target);
+          if (!bsTable) return;
+          var state = bsTable.$s.bsTableControl.state;
+          bsTable.$s.$applyAsync(function () {
+            state.pageNumber = pageNumber;
+            state.pageSize = pageSize;
+          });
+        })
+        .on('search.bs.table', CONTAINER_SELECTOR+' table', function (evt, searchText) {
+          var bsTable = getBsTable(evt.target);
+          if (!bsTable) return;
+          var state = bsTable.$s.bsTableControl.state;
+          bsTable.$s.$applyAsync(function () {
+            state.searchText = searchText;
+          });
+        })
+        .on('focus blur', CONTAINER_SELECTOR+' '+SEARCH_SELECTOR, function (evt) {
+          var bsTable = getBsTable(evt.target);
+          if (!bsTable) return;
+          var state = bsTable.$s.bsTableControl.state;
+          bsTable.$s.$applyAsync(function () {
+            state.searchHasFocus = $(evt.target).is(':focus');
+          });
         });
-      })
-      .on('page-change.bs.table', CONTAINER_SELECTOR+' table', function (evt, pageNumber, pageSize) {
-        var bsTable = getBsTable(evt.target);
-        if (!bsTable) return;
-        var state = bsTable.$s.bsTableControl.state;
-        bsTable.$s.$applyAsync(function () {
-          state.pageNumber = pageNumber;
-          state.pageSize = pageSize;
-        });
-      })
-      .on('search.bs.table', CONTAINER_SELECTOR+' table', function (evt, searchText) {
-        var bsTable = getBsTable(evt.target);
-        if (!bsTable) return;
-        var state = bsTable.$s.bsTableControl.state;
-        bsTable.$s.$applyAsync(function () {
-          state.searchText = searchText;
-        });
-      })
-      .on('focus blur', CONTAINER_SELECTOR+' '+SEARCH_SELECTOR, function (evt) {
-        var bsTable = getBsTable(evt.target);
-        if (!bsTable) return;
-        var state = bsTable.$s.bsTableControl.state;
-        bsTable.$s.$applyAsync(function () {
-          state.searchHasFocus = $(evt.target).is(':focus');
-        });
-      });
 
     return {
       restrict: 'EA',
@@ -97,11 +95,14 @@
         $s.$watch('bsTableControl.state', function (state) {
           if (!state) state = $s.bsTableControl.state = {};
           $el.trigger('directive-updated.bs.table', [state]);
+
         }, true);
+        $el.bind('post-body.bs.table', function() {
+          $compile($el.contents())($s);
+        });
         $s.$on('$destroy', function () {
           delete bsTables[$s.$id];
         });
       }
     };
-  }])
-})();
+  }]) })();

@@ -1,6 +1,10 @@
 angular
     .module('turfApp', ['ui.router', 'ui.bootstrap', 'login', 'orderManagement','bsTable','app.ctrl','app.directive'])
     .value('API', 'http://localhost:8000/')
+    /*.run(['$rootScope', '$state', '$stateParams',function($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+    }])*/
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
           $urlRouterProvider.otherwise('/login');
           $stateProvider
@@ -60,6 +64,7 @@ angular
                       }
                   }
               })
+
               .state('login', {
                   url: '/login',
                   views: {
@@ -106,6 +111,37 @@ angular
                   }
               })
 
+              .state('index.order_detail', {
+                  url: '/order_detail/:order_id',
+                  views: {
+                      'topbar@index': {
+                          templateUrl: 'tpls/oh/topbar.html'
+                      },
+                      'sidebar@index': {
+                          templateUrl: 'tpls/oh/sidebar_oh.html'
+                      },
+                      'main@index': {
+                          templateUrl: 'tpls/oh/orderDetail.html'
+
+                      }
+                  }
+                  /*params: {
+                      order_id: '',
+                      customer_name: '',
+                      customer_contact: '',
+                      customer_email: '',
+                      turf_variety: '',
+                      turf_quantity: '',
+                      total_price: '',
+                      cutter: '',
+                      driver: '',
+                      layer: '',
+                      address_detail: '',
+                      delivery_date_time: '',
+                      submitted_date_time: '',
+                      order_status: ''
+                  }*/
+              })
       }])
     .controller('DatePickerPopupCtrl',['$scope', function ($scope) {
         $scope.today = function() {

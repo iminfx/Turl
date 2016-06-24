@@ -1,0 +1,123 @@
+<section id="main-content">
+    <section class="wrapper">
+        <!-- page start-->
+        <section class="panel">
+            <div class="panel-heading">
+                <ul class="breadcrumb">
+                    <li class="active">Order Detail</li>
+                </ul>
+            </div>
+            <div class="panel-body order-detail" ng-controller="orderDetail">
+                <form class="form-horizontal" name="form" ng-submit="updata()" role="form">
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">OrderId</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <input type="text" name="orderId" class="form-control" ng-class="" ng-model="order.order_id"  placeholder=" " required ng-disabled="true">
+                            <p ng-if=""></p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-warning':form.customerName.$invalid && form.customerName.$touched}">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Customer Name</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <input type="text" name="customerName" class="form-control" ng-model="order.customer_name"  placeholder=" " required ng-disabled="disableSwitch">
+                            <p ng-if="form.customerName.$invalid && form.customerName.$touched">please input customer name</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Customer Contact</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <input type="tel" class="form-control" ng-model="order.customer_contact"  placeholder=" " required ng-disabled="disableSwitch">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Customer E-mail</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <input type="email" class="form-control" ng-model="order.customer_email" placeholder=" " required ng-disabled="disableSwitch">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Address Details</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <input type="text" class="form-control" placeholder=" " ng-model="order.address_detail" required ng-disabled="disableSwitch">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Variety</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <select class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_price as turfVariety.turf_type for turfVariety in turf" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
+                                <option value="">Select Turf Variety</option>
+                            </select>
+                            <p class="disabledSelect" ng-show="disableSwitch">{{order.turf_variety}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Quantity</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <input type="number" class="form-control" ng-model="order.turf_quantity" placeholder=" " required ng-disabled="disableSwitch">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Total Price</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <input type="number" class="form-control" ng-model="order.total_price"  placeholder="" required ng-disabled="disableSwitch">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-controller="DatePickerPopupCtrl">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Delivery Date</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="order.delivery_date_time"
+                                       is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"
+                                       alt-input-formats="altInputFormats" ng-disabled="disableSwitch"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Cutter</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <select name="cutter" class="form-control" ng-model="order.cutter" ng-options="cutter.cutter_name as cutter.cutter_name for cutter in cutters" required ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
+                                <option value="">Select Cutter</option>
+                            </select>
+                            <span ng-show="form.cutter.$error.required">Select Cutter</span>
+                            <p class="disabledSelect" ng-show="disableSwitch">{{order.cutter}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Driver</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <select class="form-control" ng-model="order.driver" ng-options="driver.driver_name as driver.driver_name for driver in drivers"  ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
+                            <option value="">Select Driver</option>
+                            </select>
+                            <p class="disabledSelect" ng-show="disableSwitch">{{order.driver}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Layer</label>
+                        <div class="col-lg-6 col-md-7 col-sm-8">
+                            <select class="form-control" ng-model="order.layer" ng-options="layer.layer_name as layer.layer_name for layer in layers"  ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
+                            <option value="">Select Layer</option>
+                            </select>
+                            <p class="disabledSelect" ng-show="disableSwitch">{{order.layer}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3 col-lg-10 col-md-9 col-sm-9">
+                            <button type="button" class="btn btn-success ml15" ng-click="mySwitch()" ng-show="disableSwitch">Edit</button>
+                            <button type="button" class="btn btn-default" ng-click="Delete()" ng-show="disableSwitch">Delete</button>
+                            <button type="submit" class="btn btn-success" ng-hide="disableSwitch">Submit</button>
+                            <button type="button" class="btn btn-default" ng-click="myCancel()" ng-hide="disableSwitch">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </section>
+        <!-- page end-->
+    </section>
+</section>
