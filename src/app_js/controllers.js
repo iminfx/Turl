@@ -83,7 +83,7 @@ angular
             layer: $stateParams.layer,
             total_price: $stateParams.total_price,
             address_detail: $stateParams.address_detail,
-            delivery_date_time: moment().format(),
+            delivery_date_time: new Date(),
             submitted_date_time: moment().format(),
             order_status: 'new',
             customer_email: $stateParams.customer_email,
