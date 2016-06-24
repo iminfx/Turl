@@ -423,6 +423,7 @@ function orderHandle($scope,$state,$http,$q,$stateParams) {
                 title: 'Variety',
                 align: 'center',
                 valign: 'middle',
+                formatter: turfVarietyFormatter,
                 sortable: true
             }, {
                 field: 'turf_quantity',
