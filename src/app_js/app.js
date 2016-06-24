@@ -126,6 +126,7 @@ angular
                       }
                   }
               })
+
               .state('index.order_handle', {
                   url: '/order_handle',
                   views: {
@@ -136,6 +137,37 @@ angular
                   }
               })
 
+              .state('index.order_detail', {
+                  url: '/order_detail/:order_id',
+                  views: {
+                      'topbar@index': {
+                          templateUrl: 'tpls/oh/topbar.html'
+                      },
+                      'sidebar@index': {
+                          templateUrl: 'tpls/oh/sidebar_oh.html'
+                      },
+                      'main@index': {
+                          templateUrl: 'tpls/oh/orderDetail.html'
+
+                      }
+                  }
+                  /*params: {
+                      order_id: '',
+                      customer_name: '',
+                      customer_contact: '',
+                      customer_email: '',
+                      turf_variety: '',
+                      turf_quantity: '',
+                      total_price: '',
+                      cutter: '',
+                      driver: '',
+                      layer: '',
+                      address_detail: '',
+                      delivery_date_time: '',
+                      submitted_date_time: '',
+                      order_status: ''
+                  }*/
+              })
       }])
     .controller('DatePickerPopupCtrl',['$scope', function ($scope) {
         $scope.today = function() {

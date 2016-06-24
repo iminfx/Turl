@@ -7,6 +7,13 @@ a:hover {
     color: #2A3542;
 }
 
+hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
 /*panel*/
 .panel {
     border: none;
@@ -15,7 +22,7 @@ a:hover {
 
 .panel-heading {
     border-color:#eff2f7 ;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 300;
 }
 

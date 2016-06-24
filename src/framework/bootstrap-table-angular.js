@@ -95,6 +95,7 @@
         $s.$watch('bsTableControl.state', function (state) {
           if (!state) state = $s.bsTableControl.state = {};
           $el.trigger('directive-updated.bs.table', [state]);
+
         }, true);
         $el.bind('post-body.bs.table', function() {
           $compile($el.contents())($s);
