@@ -1,10 +1,6 @@
 angular
     .module('turfApp', ['ui.router', 'ui.bootstrap', 'login', 'orderManagement','bsTable','app.ctrl','app.directive'])
-    .value('API', 'http://localhost:8000/')
-    /*.run(['$rootScope', '$state', '$stateParams',function($rootScope, $state, $stateParams) {
-        $rootScope.$state = $state;
-        $rootScope.$stateParams = $stateParams;
-    }])*/
+    .value('API', 'http://192.168.199.111:8089')
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
           $urlRouterProvider.otherwise('/login');
           $stateProvider
@@ -48,7 +44,7 @@ angular
                   }
               })
               .state('newOrder', {
-                  url: '/newOrder',
+                  url: '/orderhandler/newOrder',
                   views: {
                       '': {
                           templateUrl: 'tpls/oh/home.html'
@@ -62,9 +58,38 @@ angular
                       'main@newOrder': {
                           templateUrl: 'tpls/oh/newOrder.html'
                       }
+                  },
+                  params: {
+                      'address_detail': null,
+                      'customer_contact': null,
+                      'customer_email': null,
+                      'customer_name': null,
+                      'cutter': null,
+                      'delivery_date_time': null,
+                      'driver': null,
+                      'layer': null,
+                      'total_price': null,
+                      'turf_quantity': null,
+                      'turf_variety': null
                   }
               })
-
+              .state('draftOrders', {
+                  url: '/orderhandler/draftOrders',
+                  views: {
+                      '': {
+                          templateUrl: 'tpls/oh/home.html'
+                      },
+                      'topbar@draftOrders': {
+                          templateUrl: 'tpls/oh/topbar.html'
+                      },
+                      'sidebar@draftOrders': {
+                          templateUrl: 'tpls/oh/sidebar_oh.html'
+                      },
+                      'main@draftOrders': {
+                          templateUrl: 'tpls/oh/draftOrders.html'
+                      }
+                  }
+              })
               .state('login', {
                   url: '/login',
                   views: {

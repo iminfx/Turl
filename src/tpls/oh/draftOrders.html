@@ -4,19 +4,15 @@
         <section class="panel">
             <div class="panel-heading">
                 <ul class="breadcrumb">
-                    <li class="active">Order Handler</li>
+                    <li class="active">Draft orders</li>
                 </ul>
             </div>
-            <div class="panel-body" ng-controller="orderHandle" >
+            <div class="panel-body" ng-controller="draftOrders" >
                 <div id="toolbar">
-                    <a class="btn btn-default" ng-click="createNewOrder()">
-                        Create New <i class="icon-plus"></i>
-                    </a>
                     <a href="" class="btn btn-default">
                         Delete <i class="icon-trash"></i>
                     </a>
                 </div>
-
                 <div class="workspaceContainer">
                     <table bs-table-control="bsTableControl"></table>
                 </div>
