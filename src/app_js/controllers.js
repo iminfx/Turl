@@ -511,20 +511,6 @@ function orderDetail ($scope, $http, $state, $stateParams){
             });
     };
     $scope.loadSelectOption();
-    $http({
-        url: 'http://192.168.199.111:8089/portal/rest/selectbyid',
-        method: 'POST',
-        data: $stateParams.order_id
-    }).success(function (data) {
-        //jumping to homepage according to the role
-        console.log('detail success! '+data);
-        $scope.order = data[0];
-    })
-        .error(function (error) {
-            //jumping to homepage according to the role
-            console.log('detail fail: ');
-        }
-    );
     $scope.order = {
         order_id: '',
         owner: '',
@@ -537,22 +523,39 @@ function orderDetail ($scope, $http, $state, $stateParams){
         layer: '',
         total_price: '',
         address_detail: '',
-        delivery_date_time: moment().format(),
-        submitted_date_time: moment().format(),
+        delivery_date_time: new Date(),
+        submitted_date_time: new Date(),
         order_status: '',
         customer_email: '',
-        last_modified: moment().format(),
+        last_modified: '',
         modifier: '',
         turf_type: '',
         is_delete: ''
     };
+    $http({
+        url: 'http://192.168.199.111:8089/portal/rest/selectbyid',
+        method: 'POST',
+        data: $stateParams.order_id
+    }).success(function (data) {
+        //jumping to homepage according to the role
+        console.log('detail success! '+data);
+        $scope.order = data[0];
+        $scope.order.delivery_date_time = new Date(data[0].delivery_date_time);
+        $scope.temoOrder = $scope.order;
+    })
+        .error(function (error) {
+            //jumping to homepage according to the role
+            console.log('detail fail: ');
+        }
+    );
+
 
     $scope.disableSwitch = true;
     $scope.mySwitch = function () {
         $scope.disableSwitch = false;
     };
     $scope.myCancel = function () {
-       // $scope.order = $scope.orderList;
+        $scope.order = $scope.temoOrder;
         $scope.disableSwitch = true;
     };
     $scope.updata = function() {
