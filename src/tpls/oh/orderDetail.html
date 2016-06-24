@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Variety</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <select class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_type for turfVariety in turf" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
+                            <select class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_type for turfVariety in turf track by turfVariety.turf_id" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
                                 <option value="">Select Turf Variety</option>
                             </select>
                             <p class="disabledSelect" ng-show="disableSwitch">{{order.turf_variety.turf_type}}</p>
