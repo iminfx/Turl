@@ -138,17 +138,13 @@ angular
 angular
     .module('app.ctrl',[])
     .controller('DropdownCtrl', DropdownCtrl)
-    .controller('orderHandle', orderHandle);
+    .controller('orderHandle', orderHandle)
+    .controller('orderDetail', orderDetail);
 DropdownCtrl.$inject = ['$scope', '$log'];
-orderHandle.$inject = ['$scope','$http','$q'];
+orderHandle.$inject = ['$scope','$state','$http','$q', '$stateParams'];
+orderDetail.$inject = ['$scope','$http','$state', '$stateParams'];
 
 function DropdownCtrl($scope, $log) {
-
-    /*$scope.items = [
-     'The first choice!',
-     'And another choice for you.',
-     'but wait! A third!'
-     ];*/
 
     $scope.status = {
         isopen: false
@@ -168,30 +164,111 @@ function DropdownCtrl($scope, $log) {
 }
 
 
-function orderHandle($scope,$http,$q) {
-/*    var query = function(){
-        var defer=$q.defer();  //声明延后执行
-        $http({
+function orderHandle($scope,$state,$http,$q,$stateParams) {
+
+       /* $http({
             method:'GET',
             url:'http://192.168.199.111:8089/portal/rest/selectorders'
         }).success(function(data,status,headers,config){
-
-            defer.resolve(data);  //声明执行成功
-            console.log('orderList success');
+            $scope.bsTableControl = {
+                options: {
+                    data: data,
+                    cache: false,
+                    striped: true,
+                    pagination: true,
+                    pageSize: 10,
+                    pageList: [10, 25, 50,100],
+                    search: true,
+                    showColumns: true,
+                    //showRefresh: false,
+                    //minimumCountColumns: 2,
+                    clickToSelect: false,
+                    //showToggle: true,
+                    //maintainSelected: true,
+                    toolbar:"#toolbar",
+                    sortName: 'submitted_date_time',
+                    sortOrder: 'desc',
+                    columns: [ {
+                        field: 'state',
+                        checkbox: true
+                    },{
+                        field: 'order_id',
+                        title: 'ID',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: idFormatter,
+                        sortable: true
+                    }, {
+                        field: 'customer_name',
+                        title: 'Name',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        field: 'turf_variety',
+                        title: 'Variety',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        field: 'turf_quantity',
+                        title: 'Quantity',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        field: 'total_price',
+                        title: 'Price',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        field: 'cutter',
+                        title: 'Cutter',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                        visible: false
+                    }, {
+                        field: 'driver',
+                        title: 'Driver',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                        visible: false
+                    }, {
+                        field: 'layer',
+                        title: 'Layer',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                        visible: false
+                    }, {
+                        field: 'delivery_date_time',
+                        title: 'DeliveryDate',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        field: 'submitted_date_time',
+                        title: 'SubmittedDate',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        field: 'order_status',
+                        title: 'Status',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }]
+                }
+            };
         })
-        .error(function(data,status,headers,config){
-            defer.reject();      //声明执行失败
-        });
-        return defer.promise; //返回承诺，返回获取数据的API
-    };
-    var promise = query();
-    promise.then(function(data){
-          //调用承诺接口resolove()
-        $scope.orderList=data;
-        console.log('orderHandleCtrl ...');
-    },function(data){
-       // $scope.user={error:'数据不存在。。。'}; //调用承诺接口reject();
-    });*/
+        .error(function(error){
+                  //声明执行失败
+        });*/
+
     $scope.orderList = [
         {
             "order_id": "2",
@@ -353,7 +430,7 @@ function orderHandle($scope,$http,$q) {
             "total_price": 123,
             "address_detail": "asdasd",
             "delivery_date_time": "asdsad",
-            "submitted_date_time": "tttttt",
+            "submitted_date_time": "2016/06/22",
             "order_status": "asds",
             "customer_email": "ffffff",
             "last_modified": null,
@@ -394,7 +471,7 @@ function orderHandle($scope,$http,$q) {
             "driver": "dsdsd",
             "total_price": 123,
             "address_detail": "asdasd",
-            "delivery_date_time": "asdsad",
+            "delivery_date_time": "2016/06/22",
             "submitted_date_time": "tttttt",
             "order_status": "asds",
             "customer_email": "ffffff",
@@ -2048,6 +2125,13 @@ function orderHandle($scope,$http,$q) {
                 align: 'center',
                 valign: 'middle',
                 formatter: idFormatter,
+                /*events: window.actionEvents = {
+                 'click .detail': function (e, value, row, index) {
+                 alert(JSON.stringify(row));
+                 console.log(value, row, index);
+                 }
+
+                 },*/
                 sortable: true
             }, {
                 field: 'customer_name',
@@ -2073,8 +2157,6 @@ function orderHandle($scope,$http,$q) {
                 align: 'center',
                 valign: 'middle',
                 clickToSelect: false
-                //formatter: flagFormatter,
-                // events: flagEvents
             }, {
                 field: 'cutter',
                 title: 'Cutter',
@@ -2117,7 +2199,166 @@ function orderHandle($scope,$http,$q) {
             }]
         }
     };
-    function idFormatter(value) {
-        return '<a href ui-sref="index">' + value + '</a>';
+    /*function idFormatter(value,row,index) {
+        //var detail = JSON.stringify(row);
+        var orderId = row.order_id;
+        //var owner = row.owner;
+        var customerName = row.customer_name;
+        var customerContact = row.customer_contact;
+        var customerEmail = row.customer_email;
+        var turfVariety = row.turf_variety;
+        var turfQuantity = row.turf_quantity;
+        var totalPrice = row.total_price;
+        var cutter = row.cutter;
+        var driver = row.driver;
+        var layer = row.layer;
+        var deliveryDate = row.delivery_date_time;
+        var submittedDate = row.submitted_date_time;
+        var address = row.address_detail;
+        var orderStatus = row.order_status;
+        return '<a href  ng-click="$parent.detail(\''+ orderId +'\',\''+ customerName +'\',\''
+            + customerContact +'\',\''+ customerEmail +'\',\''+ turfVariety +'\',\''+ turfQuantity +'\',\''
+            + totalPrice +'\',\''+ cutter +'\',\''+ driver +'\',\''+ layer +'\',\''+ deliveryDate +'\',\''
+            + submittedDate +'\',\''+ address +'\',\''+ orderStatus +'\')">' + value + '</a>';
+        //return '<a href  ng-click="$parent.detail(\''+ row +'\')">' + value + '</a>';
+    }*/
+
+    //$scope.detail = function (orderId,customerName,customerContact,customerEmail,turfVariety,turfQuantity,totalPrice,cutter,driver,layer,deliveryDate,submittedDate,address,orderStatus) {
+    //    $state.go('index.order_detail', {
+    //        order_id:orderId,
+    //        //owner: owner,
+    //        customer_name: customerName,
+    //        customer_contact: customerContact,
+    //        customer_email: customerEmail,
+    //        turf_variety: turfVariety,
+    //        turf_quantity: turfQuantity,
+    //        total_price: totalPrice,
+    //        cutter: cutter,
+    //        driver: driver,
+    //        layer: layer,
+    //        address_detail: address,
+    //        delivery_date_time: deliveryDate,
+    //        submitted_date_time: submittedDate,
+    //        order_status: orderStatus
+    //    });
+    //};
+    function idFormatter(value,row,index) {
+        return '<a href  ui-sref="index.order_detail({order_id:\''+ value +'\'})">' + value + '</a>';
+    }
+}
+
+function orderDetail ($scope, $http, $state, $stateParams){
+    console.log($stateParams);
+    $scope.loadSelectOption = function(){
+        var selectOptionsUrl = 'http://192.168.199.111:8089/portal/select/test/';
+        $http.get(selectOptionsUrl)
+            .success(function (data) {
+                $scope.turf = data[0].turf;
+                $scope.cutters = data[0].cutters;
+                $scope.drivers = data[0].drivers;
+                $scope.layers = data[0].layers;
+            })
+            .error(function (error) {
+            });
+    };
+    $scope.loadSelectOption();
+    //$scope.order_id = $stateParams.order_id;
+    $http({
+        url: 'http://192.168.199.111:8080/portal/insert/order/',
+        method: 'GET',
+        data: JSON.stringify($stateParams.order_id)
+    }).success(function (data) {
+        //jumping to homepage according to the role
+        console.log('updata success! ');
+        $scope.order = data;
+        $state.go('ohhome', {});
+    })
+        .error(function (error) {
+            //jumping to homepage according to the role
+            console.log('updata fail: ');
+        }
+    );
+    /*$scope.order = {
+        order_id: $stateParams.order_id,
+        customer_name: $stateParams.customer_name,
+        customer_contact: $stateParams.customer_contact,
+        customer_email: $stateParams.customer_email,
+        turf_variety: Number($stateParams.turf_variety),
+        turf_quantity: Number($stateParams.turf_quantity),
+        total_price: Number($stateParams.total_price),
+        cutter: $stateParams.cutter,
+        driver: $stateParams.driver,
+        layer: $stateParams.layer,
+        address_detail: $stateParams.address_detail,
+        delivery_date_time: $stateParams.delivery_date_time,
+        submitted_date_time: $stateParams.submitted_date_time,
+        order_status: $stateParams.order_status
+    };*/
+    $scope.order = {
+        order_id: $stateParams.order_id
+    };
+    $scope.disableSwitch = true;
+    $scope.mySwitch = function () {
+        $scope.disableSwitch = false;
+    };
+    $scope.myCancel = function () {
+        $scope.order = {
+            order_id: $stateParams.order_id,
+            customer_name: $stateParams.customer_name,
+            customer_contact: $stateParams.customer_contact,
+            customer_email: $stateParams.customer_email,
+            turf_variety: Number($stateParams.turf_variety),
+            turf_quantity: Number($stateParams.turf_quantity),
+            total_price: Number($stateParams.total_price),
+            cutter: $stateParams.cutter,
+            driver: $stateParams.driver,
+            layer: $stateParams.layer,
+            address_detail: $stateParams.address_detail,
+            delivery_date_time: $stateParams.delivery_date_time,
+            submitted_date_time: $stateParams.submitted_date_time,
+            order_status: $stateParams.order_status
+        };
+        $scope.disableSwitch = true;
+    };
+
+    $scope.updata = function() {
+        /*$scope.updataData = {
+
+        };*/
+        var updataData = {
+            order_id: $scope.order.order_id,
+            customer_name: $scope.order.customer_name,
+            customer_contact: $scope.order.customer_contact,
+            turf_variety: $scope.order.turf_variety,
+            turf_quantity: $scope.order.turf_quantity,
+            cutter: $scope.order.cutter,
+            driver: $scope.order.driver,
+            layer: $scope.order.layer,
+            total_price: $scope.order.total_price,
+            address_detail: $scope.order.address_detail,
+            delivery_date_time: $scope.order.delivery_date_time,
+            submitted_date_time: $scope.order.submitted_date_time,
+            order_status: $scope.order.order_status,
+            customer_email:$scope.order.customer_email,
+            last_modified: '',
+            modifier: '',
+            turf_type: '',
+            is_delete: ''
+        };
+        $http({
+            url: 'http://192.168.199.111:8080/portal/insert/order/',
+            method: 'POST',
+            data: JSON.stringify(updataData)
+        }).success(function () {
+            //jumping to homepage according to the role
+            console.log('updata success! ');
+            $state.go('ohhome', {});
+        })
+            .error(function (error) {
+                //jumping to homepage according to the role
+                console.log('updata fail: ');
+            }
+        );
+
     }
 }
