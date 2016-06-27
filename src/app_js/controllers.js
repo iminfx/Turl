@@ -56,22 +56,40 @@ angular
                 });
         };
         $scope.loadSelectOption();
-        /*$scope.order = {
-            customerName: '',
-            customerContact: '',
-            customerEmail: '',
-            turfVariety: 0,
-            turfQuantity: '',
-            totalPrice: '',
+        $scope.order = {
+            order_id: '',
+            owner: '',
+            customer_name: '',
+            customer_contact: '',
+            turf_variety: '',
+            turf_quantity: '',
             cutter: '',
             driver: '',
             layer: '',
-            address: '',
-            expectDeliveryDate: moment().format(),
-            orderCreate: moment().format(),
-            lastModified: moment().format()
-        };*/
-        $scope.order = {
+            total_price: '',
+            address_detail: '',
+            delivery_date_time: new Date(),
+            submitted_date_time: moment().format(),
+            order_status: '',
+            customer_email: '',
+            last_modified: moment().format(),
+            modifier: '',
+            turf_type: '',
+            is_delete: ''
+        };
+        $scope.getDraft = function(){
+            var config = {params: {draftId: $stateParams.draft_id}};
+            $http.get('http://192.168.199.111:8089/portal/rest/selectbyid',config
+            ).success(function (data) {
+                console.log('get draft success! '+data);
+                $scope.order = data[0];
+            })
+            .error(function (error) {
+                console.log('get draft fail! ');
+            });
+        };
+        $scope.getDraft();
+        /*$scope.order = {
             order_id: '',
             owner: '',
             customer_name: $stateParams.customer_name,
@@ -91,7 +109,7 @@ angular
             modifier: '',
             turf_type: '',
             is_delete: ''
-        };
+        };*/
 
         $scope.updateTotalPrice = function(tv, tq){
             $scope.order.total_price = tv*tq;
@@ -109,7 +127,7 @@ angular
                 turf_quantity: $scope.order.turf_quantity,
                 cutter: $scope.order.cutter,
                 driver: $scope.order.driver,
-                layer: $scope.order.driver,
+                layer: $scope.order.layer,
                 total_price: $scope.order.total_price,
                 address_detail: $scope.order.address_detail,
                 delivery_date_time: $scope.order.delivery_date_time,
@@ -327,7 +345,7 @@ angular
             $state.go('newOrder', p);
         };
         function ngclick(value, row, index) {
-            var str = 'customer_name:' + row.customer_name
+            /*var str = 'customer_name:' + row.customer_name
                 + ',customer_contact:' + row.customer_contact
                 + ',address_detail:' + row.address_detail
                 + ',customer_email:' + row.customer_email
@@ -338,8 +356,9 @@ angular
                 + ',total_price:' + row.total_price
                 + ',turf_quantity:' + row.turf_quantity
                 + ',turf_variety:' + row.turf_variety
-                + ',draft_id:' + row.draft_id;
-            return '<a ng-click="$parent.doSomething(\''+str +'\')">'+value+'</a>';
+                + ',draft_id:' + row.draft_id;*/
+            //return '<a ng-click="$parent.doSomething(\''+str +'\')">'+value+'</a>';
+            return '<a href  ui-sref="newOrder({draft_id:\''+ row.draft_id +'\'})">' + value + '</a>';
         }
 
     }]);
@@ -375,16 +394,16 @@ function DropdownCtrl($scope, $log) {
 
 function orderHandle($scope,$state,$http,$q,$stateParams) {
 
-        $http({
-            method:'GET',
-            url:'http://192.168.199.111:8089/portal/rest/selectorders'
-        }).success(function(data,status,headers,config){
-            $scope.bsTableControl.options.data = data;
+    $http({
+        method:'GET',
+        url:'http://192.168.199.111:8089/portal/rest/selectorders'
+    }).success(function(data,status,headers,config){
+        $scope.bsTableControl.options.data = data;
 
-        })
-        .error(function(error){
-                  //声明执行失败
-        });
+    })
+    .error(function(error){
+              //声明执行失败
+    });
     $scope.bsTableControl = {
         options: {
             cache: false,
