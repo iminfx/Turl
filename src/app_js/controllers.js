@@ -79,16 +79,19 @@ angular
         };
         $scope.getDraft = function(){
             var config = {params: {draftId: $stateParams.draft_id}};
-            $http.get('http://192.168.199.111:8089/portal/rest/selectbyid',config
+            $http.get('http://192.168.199.111:8089/portal/select/draftfile',config
             ).success(function (data) {
                 console.log('get draft success! '+data);
-                $scope.order = data[0];
+                $scope.order = data;
+                $scope.order.delivery_date_time = new Date(data.delivery_date_time);
             })
             .error(function (error) {
                 console.log('get draft fail! ');
             });
         };
+
         $scope.getDraft();
+
         /*$scope.order = {
             order_id: '',
             owner: '',
@@ -163,14 +166,14 @@ angular
                 owner: '',
                 customer_name: order.customer_name,
                 customer_contact: order.customer_contact,
-                turf_variety: order.turf_variety?order.turf_variety.turf_type:'',
+                turf_variety: $scope.order.turf_variety,
                 turf_quantity: order.turf_quantity,
                 cutter: order.cutter,
                 driver: order.driver,
                 layer: order.driver,
                 total_price: order.total_price,
                 address_detail: order.address_detail,
-                delivery_date_time: order.delivery_date_time,
+                delivery_date_time: $scope.order.delivery_date_time,
                 submitted_date_time: '',
                 order_status: 'draft',
                 customer_email:order.customer_email,
@@ -327,7 +330,7 @@ angular
             return value?value.slice(0,10)+'<br/>'+value.slice(11,19):'';
         }
         function dateFormat2(value){
-            return value?value.slice(0,10):'';
+            return angular.isString(value)?value.slice(0,10):'';
         }
         function turfVarietyFormatter(value){
             return value?value.turf_type:'';
