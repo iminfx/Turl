@@ -1,5 +1,5 @@
 angular
-    .module('turfApp', ['ui.router', 'ui.bootstrap', 'login', 'orderManagement','bsTable','app.ctrl','app.directive'])
+    .module('turfApp', ['ui.router', 'ui.bootstrap', 'login', 'orderManagement','bsTable','app.ctrl','app.directive','app.services'])
     .value('API', 'http://192.168.199.111:8089')
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
           $urlRouterProvider.otherwise('/login');
