@@ -44,7 +44,7 @@ angular
                   }
               })
               .state('newOrder', {
-                  url: '/orderhandler/newOrder',
+                  url: '/orderhandler/newOrder/:draft_id',
                   views: {
                       '': {
                           templateUrl: 'tpls/oh/home.html'
@@ -58,8 +58,8 @@ angular
                       'main@newOrder': {
                           templateUrl: 'tpls/oh/newOrder.html'
                       }
-                  },
-                  params: {
+                  }
+                  /*params: {
                       'address_detail': null,
                       'customer_contact': null,
                       'customer_email': null,
@@ -72,7 +72,7 @@ angular
                       'turf_quantity': null,
                       'turf_variety': null,
                       'draft_id': null
-                  }
+                  }*/
               })
               .state('draftOrders', {
                   url: '/orderhandler/draftOrders',
@@ -126,7 +126,6 @@ angular
                       }
                   }
               })
-
               .state('index.order_handle', {
                   url: '/order_handle',
                   views: {

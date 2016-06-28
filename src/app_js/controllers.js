@@ -56,22 +56,43 @@ angular
                 });
         };
         $scope.loadSelectOption();
-        /*$scope.order = {
-            customerName: '',
-            customerContact: '',
-            customerEmail: '',
-            turfVariety: 0,
-            turfQuantity: '',
-            totalPrice: '',
+        $scope.order = {
+            order_id: '',
+            owner: '',
+            customer_name: '',
+            customer_contact: '',
+            turf_variety: '',
+            turf_quantity: '',
             cutter: '',
             driver: '',
             layer: '',
-            address: '',
-            expectDeliveryDate: moment().format(),
-            orderCreate: moment().format(),
-            lastModified: moment().format()
-        };*/
-        $scope.order = {
+            total_price: '',
+            address_detail: '',
+            delivery_date_time: new Date(),
+            submitted_date_time: moment().format(),
+            order_status: '',
+            customer_email: '',
+            last_modified: moment().format(),
+            modifier: '',
+            turf_type: '',
+            is_delete: ''
+        };
+        $scope.getDraft = function(){
+            var config = {params: {draftId: $stateParams.draft_id}};
+            $http.get('http://192.168.199.111:8089/portal/select/draftfile',config
+            ).success(function (data) {
+                console.log('get draft success! '+data);
+                $scope.order = data;
+                $scope.order.delivery_date_time = new Date(data.delivery_date_time);
+            })
+            .error(function (error) {
+                console.log('get draft fail! ');
+            });
+        };
+
+        $scope.getDraft();
+
+        /*$scope.order = {
             order_id: '',
             owner: '',
             customer_name: $stateParams.customer_name,
@@ -83,7 +104,7 @@ angular
             layer: $stateParams.layer,
             total_price: $stateParams.total_price,
             address_detail: $stateParams.address_detail,
-            delivery_date_time: moment().format(),
+            delivery_date_time: new Date(),
             submitted_date_time: moment().format(),
             order_status: 'new',
             customer_email: $stateParams.customer_email,
@@ -91,7 +112,7 @@ angular
             modifier: '',
             turf_type: '',
             is_delete: ''
-        };
+        };*/
 
         $scope.updateTotalPrice = function(tv, tq){
             $scope.order.total_price = tv*tq;
@@ -109,7 +130,7 @@ angular
                 turf_quantity: $scope.order.turf_quantity,
                 cutter: $scope.order.cutter,
                 driver: $scope.order.driver,
-                layer: $scope.order.driver,
+                layer: $scope.order.layer,
                 total_price: $scope.order.total_price,
                 address_detail: $scope.order.address_detail,
                 delivery_date_time: $scope.order.delivery_date_time,
@@ -145,14 +166,14 @@ angular
                 owner: '',
                 customer_name: order.customer_name,
                 customer_contact: order.customer_contact,
-                turf_variety: order.turf_variety?order.turf_variety.turf_type:'',
+                turf_variety: $scope.order.turf_variety,
                 turf_quantity: order.turf_quantity,
                 cutter: order.cutter,
                 driver: order.driver,
-                layer: order.driver,
-                total_price: order.total_price,
+                layer: order.layer,
+                total_price: $scope.order.total_price,
                 address_detail: order.address_detail,
-                delivery_date_time: order.delivery_date_time,
+                delivery_date_time: $scope.order.delivery_date_time,
                 submitted_date_time: '',
                 order_status: 'draft',
                 customer_email:order.customer_email,
@@ -309,7 +330,7 @@ angular
             return value?value.slice(0,10)+'<br/>'+value.slice(11,19):'';
         }
         function dateFormat2(value){
-            return value?value.slice(0,10):'';
+            return angular.isString(value)?value.slice(0,10):'';
         }
         function turfVarietyFormatter(value){
             return value?value.turf_type:'';
@@ -327,7 +348,7 @@ angular
             $state.go('newOrder', p);
         };
         function ngclick(value, row, index) {
-            var str = 'customer_name:' + row.customer_name
+            /*var str = 'customer_name:' + row.customer_name
                 + ',customer_contact:' + row.customer_contact
                 + ',address_detail:' + row.address_detail
                 + ',customer_email:' + row.customer_email
@@ -338,8 +359,9 @@ angular
                 + ',total_price:' + row.total_price
                 + ',turf_quantity:' + row.turf_quantity
                 + ',turf_variety:' + row.turf_variety
-                + ',draft_id:' + row.draft_id;
-            return '<a ng-click="$parent.doSomething(\''+str +'\')">'+value+'</a>';
+                + ',draft_id:' + row.draft_id;*/
+            //return '<a ng-click="$parent.doSomething(\''+str +'\')">'+value+'</a>';
+            return '<a href  ui-sref="newOrder({draft_id:\''+ row.draft_id +'\'})">' + value + '</a>';
         }
 
     }]);
@@ -375,16 +397,16 @@ function DropdownCtrl($scope, $log) {
 
 function orderHandle($scope,$state,$http,$q,$stateParams) {
 
-        $http({
-            method:'GET',
-            url:'http://192.168.199.111:8089/portal/rest/selectorders'
-        }).success(function(data,status,headers,config){
-            $scope.bsTableControl.options.data = data;
+    $http({
+        method:'GET',
+        url:'http://192.168.199.111:8089/portal/rest/selectorders'
+    }).success(function(data,status,headers,config){
+        $scope.bsTableControl.options.data = data;
 
-        })
-        .error(function(error){
-                  //声明执行失败
-        });
+    })
+    .error(function(error){
+              //声明执行失败
+    });
     $scope.bsTableControl = {
         options: {
             cache: false,
@@ -423,6 +445,7 @@ function orderHandle($scope,$state,$http,$q,$stateParams) {
                 title: 'Variety',
                 align: 'center',
                 valign: 'middle',
+                formatter: turfVarietyFormatter,
                 sortable: true
             }, {
                 field: 'turf_quantity',

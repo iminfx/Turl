@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Variety</label>
                                 <div class="col-lg-6 col-md-7 col-sm-8">
-                                    <select name="turf_varity" class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_type for turfVariety in turf"  ng-change="updateTotalPrice(order.turf_quanutity, order.turf_varity.turf_price)" required>
+                                    <select name="turf_varity" class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_type for turfVariety in turf  track by turfVariety.turf_id"  ng-change="updateTotalPrice(order.turf_quanutity, order.turf_varity.turf_price)" required>
                                         <option value="">Select Turf Variety</option>
                                     </select>
                                     <span ng-show="form.turf_varity.$error.required">Select Turf Variety</span>
