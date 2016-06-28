@@ -8,7 +8,7 @@
                 </ul>
             </div>
             <div class="panel-body order-detail" ng-controller="orderDetail">
-                <form class="form-horizontal" name="form" ng-submit="updata()" role="form">
+                <form class="form-horizontal" name="form" ng-submit="upData()" role="form">
                     <div class="form-group">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">OrderId</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
@@ -16,17 +16,18 @@
                             <p ng-if=""></p>
                         </div>
                     </div>
-                    <div class="form-group" ng-class="{'has-warning':form.customerName.$invalid && form.customerName.$touched}">
+                    <div class="form-group">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">Customer Name</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <input type="text" name="customerName" class="form-control" ng-model="order.customer_name"  placeholder=" " ng-required="true"  ng-disabled="disableSwitch">
-                            <p ng-if="form.customerName.$invalid && form.customerName.$touched">please input customer name</p>
+                            <input type="text" name="customerName" class="form-control" ng-model="order.customer_name"  placeholder=" " ng-required="true"  ng-disabled="true">
+
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"  ng-class="{'has-warning':form.customerContact.$invalid && form.customerContact.$touched}">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">Customer Contact</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <input type="tel" class="form-control" ng-model="order.customer_contact"  placeholder=" " required ng-disabled="disableSwitch">
+                            <input type="tel"  name="customerContact" class="form-control" ng-model="order.customer_contact"  placeholder=" " required ng-disabled="disableSwitch">
+                            <p ng-if="form.customerContact.$invalid && form.customerContact.$touched">please input customer contact</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -44,16 +45,16 @@
                     <div class="form-group">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Variety</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <select class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_type as turfVariety.turf_type for turfVariety in turf" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
+                            <select class="form-control" ng-model="order.turf_variety" ng-options="turfVariety.turf_type for turfVariety in turf track by turfVariety.turf_id" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch">
                                 <option value="">Select Turf Variety</option>
                             </select>
-                            <p class="disabledSelect" ng-show="disableSwitch">{{order.turf_variety}}</p>
+                            <p class="disabledSelect" ng-show="disableSwitch">{{order.turf_variety.turf_type}}</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 col-md-3 col-sm-3 control-label">Turf Quantity</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <input type="number" class="form-control" ng-model="order.turf_quantity" placeholder=" " required ng-disabled="disableSwitch">
+                            <input type="number" class="form-control" ng-model="order.turf_quantity" ng-change="updateTotalPrice(order.turf_quantity, order.turf_variety.turf_price)" placeholder=" " required ng-disabled="disableSwitch">
 
                         </div>
                     </div>
@@ -63,10 +64,10 @@
                             <input type="number" class="form-control" ng-model="order.total_price"  placeholder="" required ng-disabled="disableSwitch">
                         </div>
                     </div>
-                    <div class="form-group" ng-controller="DatePickerPopupCtrl">
-                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Delivery Date</label>
+                    <div class="form-group">
+                        <label class="col-lg-2 col-md-3 col-sm-3 control-label">Expect Delivery Date</label>
                         <div class="col-lg-6 col-md-7 col-sm-8">
-                            <input type="date" class="form-control" ng-model="order.delivery_date_time" ng-required="true" ng-disabled="disableSwitch" ng-hide="disableSwitch" >
+                            <input type="date" class="form-control" ng-model="order.delivery_date_time" ng-required="true" ng-disabled="disableSwitch" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -100,7 +101,7 @@
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-md-offset-3 col-sm-offset-3 col-lg-10 col-md-9 col-sm-9">
                             <button type="button" class="btn btn-success ml15" ng-click="mySwitch()" ng-show="disableSwitch">Edit</button>
-                            <button type="button" class="btn btn-default" ng-click="Delete()" ng-show="disableSwitch">Delete</button>
+                            <button type="button" class="btn btn-default" ng-click="delete()" ng-show="disableSwitch">Delete</button>
                             <button type="submit" class="btn btn-success" ng-hide="disableSwitch">Submit</button>
                             <button type="button" class="btn btn-default" ng-click="myCancel()" ng-hide="disableSwitch">Cancel</button>
                         </div>
