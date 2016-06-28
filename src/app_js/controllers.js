@@ -394,7 +394,7 @@ function orderHandle($scope,$state,$http,$q,$stateParams,orderHandleService) {
         console.log('orderHandleService fail');
     });
 
-        $scope.bsTableControl = {
+    $scope.bsTableControl = {
             options: {
                 //data:orderList,
                 cache: false,
