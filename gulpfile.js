@@ -14,7 +14,8 @@ var jsVendorFiles = [
     './src/framework/ui-bootstrap-tpls-1.3.1.js',
     './bower_components/moment/min/moment.min.js',
     './src/framework/bootstrap-table.js',
-    './src/framework/bootstrap-table-angular.js'
+    './src/framework/bootstrap-table-angular.js',
+    './src/framework/angular-busy.js'
 ];
 
 var jsFile = [
@@ -31,6 +32,7 @@ var cssFiles = [
     './src/css/bootstrap.css',
     './src/css/font-awesome.min.css',
     './src/css/bootstrap-table.css',
+    './src/css/angular-busy.css',
     './src/css/bootstrap-reset.css',
     './src/css/style.css',
     './src/css/style-responsive.css'

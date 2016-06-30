@@ -1,28 +1,40 @@
 <div id="sidebar">
     <!-- sidebar menu start-->
-    <ul class="sidebar-menu" id="nav-accordion">
+    <ul class="sidebar-menu" id="nav-accordion" ng-controller="sidebarCtrl">
         <li>
-            <a data-ng-class="{ active: $state.includes('ohhome') }" data-ui-sref="ohhome">
-                <i class="icon-home"></i>
+            <a ng-class="{ active: $state.is('orderhandler') }" ui-sref="orderhandler">
+                <i class="icon-list-alt"></i>
                 <span>Order Management</span>
             </a>
         </li>
         <li>
-            <a data-ng-class="{ active: $state.includes('newOrder') }" data-ui-sref="newOrder">
-                <i class="icon-lock"></i>
-                <span>create new{{createNew}}</span>
+            <a ng-class="{ active: $state.includes('orderhandler.newOrder') }" ui-sref="orderhandler.newOrder">
+                <i class="icon-plus"></i>
+                <span>create new</span>
             </a>
         </li>
         <li>
-            <a data-ng-class="{ active: $state.includes('draftOrders') }" data-ui-sref="draftOrders">
-                <i class="icon-lock"></i>
+            <a ng-class="{ active: $state.includes('orderhandler.draftOrders') }" ui-sref="orderhandler.draftOrders">
+                <i class="icon-list-ul"></i>
                 <span>Draft Orders</span>
             </a>
         </li>
         <li>
-            <a class="" ui-sref="ohhome">
-                <i class="icon-edit"></i>
+            <a ui-sref="orderhandler">
+                <i class="icon-off"></i>
                 <span>Closed Orders</span>
+            </a>
+        </li>
+        <li>
+            <a ng-class="{ active: $state.includes('orderhandler.register') }"  ui-sref="orderhandler.register">
+                <i class="icon-user"></i>
+                <span>Register</span>
+            </a>
+        </li>
+        <li>
+            <a ng-class="{ active: $state.includes('orderhandler.workerlist') }"  ui-sref="orderhandler.workerlist">
+                <i class="icon-list-ul"></i>
+                <span>WorkerList</span>
             </a>
         </li>
     </ul>

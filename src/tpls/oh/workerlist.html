@@ -4,21 +4,21 @@
         <section class="panel">
             <div class="panel-heading">
                 <ul class="breadcrumb">
-                    <li class="active">Order Handler</li>
+                    <li class="active">Worker List</li>
                 </ul>
             </div>
-            <div class="panel-body" ng-controller="orderHandle" >
+            <div class="panel-body">
                 <div id="toolbar">
-                    <a class="btn btn-default" ng-click="createNewOrder()">
-                        Create New <i class="icon-plus"></i>
+                    <a class="btn btn-default" ng-click="registerNewWorker()">
+                        Create New Worker <i class="icon-plus"></i>
                     </a>
-                    <a class="btn btn-default" ng-click="delete()">
+                    <a href="" class="btn btn-default">
                         Delete <i class="icon-trash"></i>
                     </a>
                 </div>
 
                 <div class="workspaceContainer">
-                    <table id="table" bs-table-control="bsTableControl"></table>
+                    <table bs-table-control="bsTableControl"></table>
                 </div>
             </div>
         </section>
